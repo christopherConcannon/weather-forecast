@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
+
+:root {
+  --primary: #fff;
+  --secondary: #e6e6e6;
+  --tertiary:  #2683E7;
+  --danger:  #ff4646;
+  --light-dark: #6f6866;
+  --dark: #3C4146;
+  --border-radius: .3rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* HEADER */
+header h1 {
+  background-color: var(--dark);
+  color: #fff;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+/* CITY SEARCH */
+#city-search {
+  background-color: var(--secondary);
+  padding: 1rem;
+}
+
+form input[type="text"] {
+  padding: .7rem;
+  border-radius: var(--border-radius);
+  border: 1px #ccc solid;
+}
+
+.btn-search {
+  background-color: var(--tertiary);
+  padding: .6rem .8rem;
+  border: none;
+  border-radius: var(--border-radius);
+  color: #fff;
+}
+
+.city-list {
+  border-radius: 1rem;
+  font-weight: 300;
+}
+
+.city-list ul {
+  margin-top: 1rem;
+}
+
+.city-list ul li {
+  background-color: #fff;
+  width: 100%;
+  border: 1px #ccc solid;
+  border-bottom: none;
+  padding: 1rem;
+}
+
+.city-list ul li:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+.city-list ul li:last-child {
+  border-bottom: 1px #ccc solid;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+/* WEATHER DETAILS */
+.current-weather {
+  border: 1px #ccc solid;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.current-weather ul {
+  margin: 1rem 0;
+  line-height: 3;
+  font-weight: 300;
+}
+
+.uv-bg {
+  background-color: var(--danger);
+  color: #fff;
+  padding: .5rem;
+  border-radius: var(--border-radius);
+}
+
+.five-day h3 {
+  font-size: 1.6rem;
+  margin: .5rem 0;
+}
+
+.card {
+background-color: var(--tertiary);
+width: 15%;
+padding: .5rem;
+color: #fff;
+border-radius: var(--border-radius);
+line-height: 2.5;
+}
+
+.card h4 {
+  font-size: 1.2rem;
+}
+
+/* SPACING UTILITIES */
+.p-1 {
+  padding: 1rem;
+}
+
+/* FLEX CONTENT */
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.justify-flex-start {
+  justify-content: flex-start
+}
+
+.justify-flex-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.col-auto {
+  flex-grow: 1;
+}
+
+.col-1 {
+  flex: 0 0 calc(100% * 1 / 12);
+}
+
+.col-3 {
+  flex: 0 0 calc(100% * 3 / 12);
+}
+
+.col-9 {
+  flex: 0 0 calc(100% * 9 / 12);
+}
+

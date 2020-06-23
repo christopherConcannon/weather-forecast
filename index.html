@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Weather Dashboard</title>
+</head>
+<body>
+  <header>
+    <h1>Weather Dashboard</h1>
+  </header>
+  <main class="flex-row">
+    <div id="city-search" class="col-3">
+      <form>
+        <label for="city">Search for a City:</label>
+        <input type="text" id="city">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="city-list">
+        <ul>
+          <li>Austin</li>
+          <li>Chicago</li>
+          <li>New York</li>
+          <li>Orlando</li>
+          <li>San Francisco</li>
+          <li>Seattle</li>
+          <li>Denver</li>
+          <li>Atlanta</li>
+        </ul>
+      </div>
+    </div>
+    <div id="weather-details" class="col-9 p-1">
+      <div class="current-weather">
+        <h2>Atlanta (8/15/2019) ☁</h2>
+        <ul>
+          <li>Temperature: 90.9°F</li>
+          <li>Humidity: 41%</li>
+          <li>Wind Speed: 4.7 MPH</li>
+          <li>UV Index: <span class="uv-bg">9.49</span></li>
+        </ul>
+      </div>
+      <div class="five-day">
+        <h3>5-Day Forecast:</h3>
+        <div class="cards flex-row justify-space-between ">
+          <div class="card">
+            <h4>8/16/2019</h4>
+            <p>☀</p> 
+            <p>Temp: 86.84°F</p>
+            <p>Humidity: 43%</p>
+          </div>
+          <div class="card">
+            <h4>8/16/2019</h4>
+            <p>☀</p> 
+            <p>Temp: 86.84°F</p>
+            <p>Humidity: 43%</p>
+          </div>
+          <div class="card">
+            <h4>8/16/2019</h4>
+            <p>☀</p> 
+            <p>Temp: 86.84°F</p>
+            <p>Humidity: 43%</p>
+          </div>
+          <div class="card">
+            <h4>8/16/2019</h4>
+            <p>☀</p> 
+            <p>Temp: 86.84°F</p>
+            <p>Humidity: 43%</p>
+          </div>
+          <div class="card">
+            <h4>8/16/2019</h4>
+            <p>☀</p> 
+            <p>Temp: 86.84°F</p>
+            <p>Humidity: 43%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://kit.fontawesome.com/4a35b8bfa2.js" crossorigin="anonymous"></script>
+</body>
+</html>
