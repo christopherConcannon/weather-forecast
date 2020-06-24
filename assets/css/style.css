@@ -43,7 +43,7 @@ header h1 {
   padding: 1rem;
 }
 
-form input[type="text"] {
+#city-search-form input[type="text"] {
   padding: .7rem;
   border-radius: var(--border-radius);
   border: 1px #ccc solid;
@@ -90,13 +90,16 @@ form input[type="text"] {
   border: 1px #ccc solid;
   border-radius: var(--border-radius);
   padding: 1rem;
-}
-
-.current-weather ul {
   margin: 1rem 0;
   line-height: 3;
   font-weight: 300;
 }
+
+/* .current-weather ul {
+  margin: 1rem 0;
+  line-height: 3;
+  font-weight: 300;
+} */
 
 .uv-bg {
   background-color: var(--danger);

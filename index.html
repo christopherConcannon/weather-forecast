@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/open-weather-icons.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>Weather Dashboard</title>
 </head>
@@ -12,9 +13,9 @@
   </header>
   <main class="flex-row">
     <div id="city-search" class="col-3">
-      <form>
-        <label for="city">Search for a City:</label>
-        <input type="text" id="city">
+      <form id="city-search-form">
+        <label for="city-input">Search for a City:</label>
+        <input type="text" id="city-input">
         <button class="btn-search"><i class="fas fa-search"></i></button>
       </form>
       <div class="city-list">
@@ -31,19 +32,21 @@
       </div>
     </div>
     <div id="weather-details" class="col-9 p-1">
-      <div class="current-weather">
-        <h2>Atlanta (8/15/2019) ☁</h2>
-        <ul>
-          <li>Temperature: 90.9°F</li>
-          <li>Humidity: 41%</li>
-          <li>Wind Speed: 4.7 MPH</li>
-          <li>UV Index: <span class="uv-bg">9.49</span></li>
-        </ul>
+      <div id="current-weather" class="current-weather">
+        <h2>
+          <span id="city-name"></span> 
+          <span id="date"></span> 
+          <i id="current-icon" class="owi"></i>
+        </h2>
+        <p>Temperature: <span id="current-temp"></span>°F</p>
+        <p>Humidity: <span id="current-humidity"></span></p>
+        <p>Wind Speed: <span id="current-wind"></span> MPH</p>
+        <p>UV Index: <span id="current-uv" class="uv-bg"></span></p>
       </div>
       <div class="five-day">
         <h3>5-Day Forecast:</h3>
-        <div class="cards flex-row justify-space-between ">
-          <div class="card">
+        <div id="cards-container" class="cards flex-row justify-space-between ">
+          <!-- <div class="card">
             <h4>8/16/2019</h4>
             <p>☀</p> 
             <p>Temp: 86.84°F</p>
@@ -72,11 +75,13 @@
             <p>☀</p> 
             <p>Temp: 86.84°F</p>
             <p>Humidity: 43%</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
   </main>
   <script src="https://kit.fontawesome.com/4a35b8bfa2.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>
