@@ -10,8 +10,8 @@
   <header>
     <h1>Weather Dashboard</h1>
   </header>
-  <main class="flex-row">
-    <div id="city-search" class="col-3">
+  <main class="flex-column flex-lg-row">
+    <div id="city-search" class="col-1 col-md-3">
       <form id="city-search-form">
         <label for="city-input">Search for a City:</label>
         <div class="input-group">
@@ -30,7 +30,6 @@
           <span id="city-name"></span> 
           <span id="date"></span> 
           <img id="current-icon"/>
-          <!-- <i id="current-icon"></i> -->
         </h2>
         <p>Temperature: <span id="current-temp"></span>°F</p>
         <p>Humidity: <span id="current-humidity"></span>%</p>
@@ -39,7 +38,7 @@
       </div>
       <div class="five-day">
         <h3>5-Day Forecast:</h3>
-        <div id="cards-container" class="cards flex-row justify-space-between ">
+        <div id="cards-container" class="cards flex-column flex-lg-row justify-space-between ">
         </div>
       </div>
     </div>

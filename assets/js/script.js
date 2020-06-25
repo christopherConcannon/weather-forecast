@@ -14,9 +14,8 @@ var forecastCardsContainer = document.querySelector('#cards-container');
 
 // GLOBALS
 var cities = [];
-// var cities = loadCities() || [];
-// cities = loadCities() || [];
 
+// HANDLE CITY SEARCH FORM SUBMISSION
 function formSubmitHandler(event) {
 	event.preventDefault();
 	// get value from input element
@@ -34,11 +33,12 @@ function formSubmitHandler(event) {
 	}
 }
 
+// HANDLE CLICK ON CITY LIST TO CALL FUNCTION TO UPDATE WEATHER DATA VIEW
 function handleCityClick() {
-  getWeatherData(event.target.innerText);
+	getWeatherData(event.target.innerText);
 }
 
-// function getWeatherData(city) {
+// FUNCTION TO FETCH WEATHER DATA FROM API
 function getWeatherData(city) {
 	var appid = '9aae1d7d5854d6a61065bbbf23e68178';
 
@@ -53,8 +53,7 @@ function getWeatherData(city) {
 			if (res.ok) {
 				// parse response
 				res.json().then(function(data) {
-        
-          // if city is not already displayed in list, display it (and save to array & LS)
+					// if city is not already displayed in city list, display it (and save to array & LS)
 					if (!cities.includes(data.name)) {
 						updateCities(data.name);
 					}
@@ -87,6 +86,7 @@ function getWeatherData(city) {
 			alert('Unable to connect to Open Weather Map');
 		});
 
+  // make a request to url for 5-day weather forecast
 	fetch(forecastWeatherUrl)
 		.then(function(res) {
 			// verify response
@@ -107,42 +107,51 @@ function getWeatherData(city) {
 
 // display city in city list and call save function
 function updateCities(city) {
+  // create list item to display city
 	var cityListItemEl = document.createElement('li');
 	cityListItemEl.innerText = city;
 
+  
 	cityList.appendChild(cityListItemEl);
 
+  // call function to save city to array & LS
 	saveCity(city);
 }
 
+// POPULATE UI WITH DATA FROM API
 function displayCurrentWeather(currentData) {
 	cityNameEl.innerText = currentData.name;
 	dateEl.innerText = `(${moment.unix(currentData.dt).format('M/D/YYYY')})`;
-	// currentIconEl.classList = `owi owi-${currentData.weather[0].icon}`;
-	currentIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${currentData.weather[0].icon}.png`)
+	currentIconEl.setAttribute(
+		'src',
+		`http://openweathermap.org/img/wn/${currentData.weather[0].icon}.png`
+	);
 	currentTempEl.innerText = currentData.main.temp;
 	currentHumidityEl.innerText = currentData.main.humidity;
 	currentWindEl.innerText = currentData.wind.speed;
 }
 
+// CONDITIONALLY DISPLAY BG-COLOR BASED ON UV SEVERITY
 function displayUVIndex(uvData) {
-  if (uvData.value < 3) {
-    currentUVEl.className = 'uv-favorable';
-  } else if (uvData.value < 8) {
-  currentUVEl.className = 'uv-moderate';
-  } else {
-    currentUVEl.className = 'uv-severe';
-  }
+	if (uvData.value < 3) {
+		currentUVEl.className = 'uv-favorable';
+	} else if (uvData.value < 8) {
+		currentUVEl.className = 'uv-moderate';
+	} else {
+		currentUVEl.className = 'uv-severe';
+	}
 	currentUVEl.innerText = uvData.value;
 }
 
+// POPULATE 5-DAY FORECAST SECTION WITH DATA FROM ITS OWN API 
 function displayForecastWeather(forecastData) {
 	forecastCardsContainer.innerHTML = '';
 
 	// loop over data.lists array
-	// 0, 8, 16, 24, 32
+	// 7, 15, 23, 31, 39
 
-	for (var i = 0; i < forecastData.list.length; i = i + 8) {
+  // display weather data from subsequent 5 days
+	for (var i = 7; i < forecastData.list.length; i = i + 8) {
 		// build HTML for each card
 		var forecastCardEl = document.createElement('div');
 		forecastCardEl.className = 'card';
@@ -150,16 +159,18 @@ function displayForecastWeather(forecastData) {
 		forecastCardsContainer.appendChild(forecastCardEl);
 
 		var forecastDateEl = document.createElement('h4');
-		// var forecastIconEl = document.createElement('i');
 		var forecastIconEl = document.createElement('img');
 		var forecastTempEl = document.createElement('p');
 		var forecastHumidityEl = document.createElement('p');
 
-		forecastDateEl.innerText = moment
-			.unix(forecastData.list[i].dt)
-			.format('M/D/YYYY');
-		// forecastIconEl.classList = `owi owi-${forecastData.list[i].weather[0].icon}`;
-		forecastIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`)
+		forecastDateEl.innerText = moment(forecastData.list[i].dt_txt).format('M/D/YYYY');
+		// forecastDateEl.innerText = moment
+		// 	.unix(forecastData.list[i].dt)
+		// 	.format('M/D/YYYY');
+		forecastIconEl.setAttribute(
+			'src',
+			`http://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`
+		);
 		forecastTempEl.innerText = `Temp: ${forecastData.list[i].main.temp}°F`;
 		forecastHumidityEl.innerText = `Humidity: ${forecastData.list[i].main.humidity}%`;
 
@@ -170,7 +181,7 @@ function displayForecastWeather(forecastData) {
 	}
 }
 
-//
+// FUNCITON TO SAVE CITY TO ARRAY AND LOCAL STORAGE, ALREADY VERIFIED UNIQUE BY THIS POINT
 function saveCity(city) {
 	// save new city to array
 	cities.push(city);
@@ -178,13 +189,10 @@ function saveCity(city) {
 	localStorage.setItem('cities', JSON.stringify(cities));
 }
 
+// FUNCTION TO POPULATE UI WITH CITY LIST
 function loadCities() {
-	window.LScities = localStorage.getItem('cities');
-	// var LScities = localStorage.getItem('cities');
-	console.log('local storage json: ' + LScities);
+	var LScities = localStorage.getItem('cities');
 	LScities = JSON.parse(LScities);
-	console.log('local storage parsed array: ' + LScities);
-
 	if (!LScities) {
 		return false;
 	}
@@ -194,11 +202,10 @@ function loadCities() {
 		updateCities(LScities[i]);
 	}
 	getWeatherData(LScities[0]);
-
-	// return LScities;
 }
 
+// INITIALIZE APP
 loadCities();
 
 citySearchForm.addEventListener('submit', formSubmitHandler);
-cityList.addEventListener('click', handleCityClick)
+cityList.addEventListener('click', handleCityClick);
