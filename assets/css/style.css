@@ -3,10 +3,11 @@
 :root {
   --primary: #fff;
   --secondary: #e6e6e6;
-  --tertiary:  #2683E7;
-  --danger:  #ff4646;
-  --light-dark: #6f6866;
   --dark: #3C4146;
+  --tertiary:  #2683E7;
+  --favorable: #299501;
+  --moderate: #f7e738;
+  --severe:  #ff4646;
   --border-radius: .3rem;
 }
 
@@ -43,10 +44,15 @@ header h1 {
   padding: 1rem;
 }
 
+.input-group {
+  display: flex;
+}
+
 #city-search-form input[type="text"] {
   padding: .7rem;
   border-radius: var(--border-radius);
   border: 1px #ccc solid;
+  margin-right: 1rem;
 }
 
 .btn-search {
@@ -95,17 +101,38 @@ header h1 {
   font-weight: 300;
 }
 
+.current-weather h2 {
+  display: flex;
+  align-items: center;
+}
+
+#city-name, #date {
+  margin-right: 1rem;
+}
+
+
+
 /* .current-weather ul {
   margin: 1rem 0;
   line-height: 3;
   font-weight: 300;
 } */
 
-.uv-bg {
-  background-color: var(--danger);
+#current-uv {
   color: #fff;
   padding: .5rem;
   border-radius: var(--border-radius);
+}
+
+.uv-favorable {
+  background-color: var(--favorable);
+}
+
+.uv-moderate {
+  background-color: var(--moderate);
+}
+.uv-severe {
+  background-color: var(--severe);
 }
 
 .five-day h3 {

@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/open-weather-icons.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>Weather Dashboard</title>
 </head>
@@ -15,19 +14,13 @@
     <div id="city-search" class="col-3">
       <form id="city-search-form">
         <label for="city-input">Search for a City:</label>
-        <input type="text" id="city-input">
-        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <div class="input-group">
+          <input type="text" id="city-input">
+          <button class="btn-search"><i class="fas fa-search"></i></button>
+        </div>
       </form>
-      <div class="city-list">
+      <div id="city-list" class="city-list">
         <ul>
-          <li>Austin</li>
-          <li>Chicago</li>
-          <li>New York</li>
-          <li>Orlando</li>
-          <li>San Francisco</li>
-          <li>Seattle</li>
-          <li>Denver</li>
-          <li>Atlanta</li>
         </ul>
       </div>
     </div>
@@ -36,12 +29,13 @@
         <h2>
           <span id="city-name"></span> 
           <span id="date"></span> 
-          <i id="current-icon" class="owi"></i>
+          <img id="current-icon"/>
+          <!-- <i id="current-icon"></i> -->
         </h2>
         <p>Temperature: <span id="current-temp"></span>°F</p>
         <p>Humidity: <span id="current-humidity"></span>%</p>
         <p>Wind Speed: <span id="current-wind"></span> MPH</p>
-        <p>UV Index: <span id="current-uv" class="uv-bg"></span></p>
+        <p>UV Index: <span id="current-uv"></span></p>
       </div>
       <div class="five-day">
         <h3>5-Day Forecast:</h3>
