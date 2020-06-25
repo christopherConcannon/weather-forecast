@@ -64,7 +64,7 @@ function getWeatherData(city) {
 					var lat = data.coord.lat;
 					var lon = data.coord.lon;
 					// format UV index fetch request with coordinates
-					var uvIndexUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${appid}&lat=${lat}&lon=${lon} `;
+					var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${appid}&lat=${lat}&lon=${lon} `;
 					// make a request for current UV Index
 					fetch(uvIndexUrl).then(function(uvRes) {
 						if (uvRes.ok) {
@@ -123,7 +123,7 @@ function displayCurrentWeather(currentData) {
 	dateEl.innerText = `(${moment.unix(currentData.dt).format('M/D/YYYY')})`;
 	currentIconEl.setAttribute(
 		'src',
-		`http://openweathermap.org/img/wn/${currentData.weather[0].icon}.png`
+		`https://openweathermap.org/img/wn/${currentData.weather[0].icon}.png`
 	);
 	currentTempEl.innerText = currentData.main.temp;
 	currentHumidityEl.innerText = currentData.main.humidity;
