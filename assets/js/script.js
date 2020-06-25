@@ -86,7 +86,7 @@ function getWeatherData(city) {
 			alert('Unable to connect to Open Weather Map');
 		});
 
-  // make a request to url for 5-day weather forecast
+	// make a request to url for 5-day weather forecast
 	fetch(forecastWeatherUrl)
 		.then(function(res) {
 			// verify response
@@ -107,14 +107,13 @@ function getWeatherData(city) {
 
 // display city in city list and call save function
 function updateCities(city) {
-  // create list item to display city
+	// create list item to display city
 	var cityListItemEl = document.createElement('li');
 	cityListItemEl.innerText = city;
 
-  
 	cityList.appendChild(cityListItemEl);
 
-  // call function to save city to array & LS
+	// call function to save city to array & LS
 	saveCity(city);
 }
 
@@ -143,14 +142,14 @@ function displayUVIndex(uvData) {
 	currentUVEl.innerText = uvData.value;
 }
 
-// POPULATE 5-DAY FORECAST SECTION WITH DATA FROM ITS OWN API 
+// POPULATE 5-DAY FORECAST SECTION WITH DATA FROM ITS OWN API
 function displayForecastWeather(forecastData) {
 	forecastCardsContainer.innerHTML = '';
 
 	// loop over data.lists array
 	// 7, 15, 23, 31, 39
 
-  // display weather data from subsequent 5 days
+	// display weather data from subsequent 5 days
 	for (var i = 7; i < forecastData.list.length; i = i + 8) {
 		// build HTML for each card
 		var forecastCardEl = document.createElement('div');
@@ -169,7 +168,8 @@ function displayForecastWeather(forecastData) {
 		// 	.format('M/D/YYYY');
 		forecastIconEl.setAttribute(
 			'src',
-			`http://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`
+			`https://openweathermap.org/img/wn/${forecastData.list[i].weather[0]
+				.icon}.png`
 		);
 		forecastTempEl.innerText = `Temp: ${forecastData.list[i].main.temp}°F`;
 		forecastHumidityEl.innerText = `Humidity: ${forecastData.list[i].main.humidity}%`;
