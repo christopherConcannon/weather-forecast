@@ -30,6 +30,7 @@ function formSubmitHandler(event) {
 		cityInput.value = '';
 	} else {
 		alert('Please enter a valid city name');
+		return;
 	}
 }
 
@@ -38,13 +39,12 @@ function handleCityClick() {
 	getWeatherData(event.target.innerText);
 }
 
-// FUNCTION TO FETCH WEATHER DATA FROM API
+// FUNCTION TO FETCH WEATHER DATA FROM MULTIPLE API ENDPOINTS
 function getWeatherData(city) {
 	var appid = '9aae1d7d5854d6a61065bbbf23e68178';
 
 	// format api url
 	var currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${appid}`;
-	var forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${appid}`;
 
 	// make a request to url for current weather
 	fetch(currentWeatherUrl)
@@ -53,46 +53,47 @@ function getWeatherData(city) {
 			if (res.ok) {
 				// parse response
 				res.json().then(function(data) {
-					// if city is not already displayed in city list, display it (and save to array & LS)
+					// if city is not already displayed in city list, display it (and save to array & LS).  if city is already displayed, don't call update function, just carry on
 					if (!cities.includes(data.name)) {
 						updateCities(data.name);
 					}
 
 					// send data to be displayed
 					displayCurrentWeather(data);
-					// get coordinates
+
+					// get coordinates to pass as params to uv and forecast endpoints
 					var lat = data.coord.lat;
 					var lon = data.coord.lon;
+
 					// format UV index fetch request with coordinates
 					var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${appid}&lat=${lat}&lon=${lon} `;
 					// make a request for current UV Index
 					fetch(uvIndexUrl).then(function(uvRes) {
 						if (uvRes.ok) {
 							uvRes.json().then(function(uvData) {
+								// send data to be displayed
 								displayUVIndex(uvData);
 							});
 						} else {
 							alert('Sorry, the UV Index was not found for that city');
 						}
 					});
-				});
-			} else {
-				// alert('Error: ' + Response.statusText);
-				alert('Sorry, that city was not found, please try again.');
-			}
-		})
-		// catch network errors
-		.catch(function(error) {
-			alert('Unable to connect to Open Weather Map');
-		});
 
-	// make a request to url for 5-day weather forecast
-	fetch(forecastWeatherUrl)
-		.then(function(res) {
-			// verify response
-			if (res.ok) {
-				res.json().then(function(data) {
-					displayForecastWeather(data);
+					// format 5-day forecast fetch request with coordinates
+					var forecastWeatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude={current, hourly, minutely}&appid=${appid}`;
+
+					fetch(forecastWeatherUrl).then(function(forecastRes) {
+						if (forecastRes.ok) {
+							forecastRes.json().then(function(forecastData) {
+								// send data to be displayed
+								displayForecastWeather(forecastData);
+							});
+						} else {
+							alert(
+								'Sorry, the 5-day forecast data is not available for that city'
+							);
+						}
+					});
 				});
 			} else {
 				// alert('Error: ' + Response.statusText);
@@ -117,7 +118,7 @@ function updateCities(city) {
 	saveCity(city);
 }
 
-// POPULATE UI WITH DATA FROM API
+// POPULATE UI WITH CURRENT DATA FROM API
 function displayCurrentWeather(currentData) {
 	cityNameEl.innerText = currentData.name;
 	dateEl.innerText = `(${moment.unix(currentData.dt).format('M/D/YYYY')})`;
@@ -142,15 +143,15 @@ function displayUVIndex(uvData) {
 	currentUVEl.innerText = uvData.value;
 }
 
-// POPULATE 5-DAY FORECAST SECTION WITH DATA FROM ITS OWN API
+// POPULATE UI WITH FORECAST DATA FROM API
 function displayForecastWeather(forecastData) {
 	forecastCardsContainer.innerHTML = '';
 
-	// loop over data.lists array
-	// 7, 15, 23, 31, 39
+  // loop over subsequent 5 days
+	for (var i = 1; i <= 5; i++) {
+		var dt = moment.unix(forecastData.daily[i].dt).format('M/D/YYYY HH:mm:ss');
+		var forecastDateName = dt.split(' ')[0].trim();
 
-	// display weather data from subsequent 5 days
-	for (var i = 7; i < forecastData.list.length; i = i + 8) {
 		// build HTML for each card
 		var forecastCardEl = document.createElement('div');
 		forecastCardEl.className = 'card';
@@ -162,17 +163,15 @@ function displayForecastWeather(forecastData) {
 		var forecastTempEl = document.createElement('p');
 		var forecastHumidityEl = document.createElement('p');
 
-		forecastDateEl.innerText = moment(forecastData.list[i].dt_txt).format('M/D/YYYY');
-		// forecastDateEl.innerText = moment
-		// 	.unix(forecastData.list[i].dt)
-		// 	.format('M/D/YYYY');
+		forecastDateEl.innerText = forecastDateName;
+
 		forecastIconEl.setAttribute(
 			'src',
-			`https://openweathermap.org/img/wn/${forecastData.list[i].weather[0]
+			`https://openweathermap.org/img/wn/${forecastData.daily[i].weather[0]
 				.icon}.png`
 		);
-		forecastTempEl.innerText = `Temp: ${forecastData.list[i].main.temp}°F`;
-		forecastHumidityEl.innerText = `Humidity: ${forecastData.list[i].main.humidity}%`;
+		forecastTempEl.innerText = `Temp: ${forecastData.daily[i].temp.day}°F`;
+		forecastHumidityEl.innerText = `Humidity: ${forecastData.daily[i].humidity}%`;
 
 		forecastCardEl.appendChild(forecastDateEl);
 		forecastCardEl.appendChild(forecastIconEl);
