@@ -180,7 +180,7 @@ function displayForecastWeather(forecastData) {
 	}
 }
 
-// FUNCITON TO SAVE CITY TO ARRAY AND LOCAL STORAGE, ALREADY VERIFIED UNIQUE BY THIS POINT
+// FUNCITON TO SAVE CITY TO ARRAY AND LOCAL STORAGE, ALREADY VERIFIED UNIQUE IN GETWEATHERDATA FETCH
 function saveCity(city) {
 	// save new city to array
 	cities.push(city);
