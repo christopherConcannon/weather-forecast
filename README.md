@@ -34,7 +34,7 @@ Open index.html file in browser of your choice.  Enter city into search input fi
 This project is covered under the MIT license 
 
 ## Technologies 
-HTML5, CSS3, JavaScript, React, MERN Stack
+HTML5, CSS3, JavaScript, Local Storage
 
 ## Contributing
 To see the guidelines adopted for contributing to this project, please view the [Contributor Covenant](https://www.contributor-covenant.org/version/2/0/code_of_conduct/code_of_conduct.txt)
